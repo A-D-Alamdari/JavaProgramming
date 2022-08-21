@@ -1,0 +1,66 @@
+import java.util.*;
+
+public class Tournament {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        // Getting the number of teams from user
+        System.out.print("Enter the number of teams in the tournament: ");
+        int numberOfTeams = Integer.parseInt(scan.nextLine());
+
+        if (numberOfTeams % 2 == 0) {
+            matchingTeams(shuffleArray(randomNumbers(numberOfTeams)), createTeamList(numberOfTeams));
+        } else {
+            System.out.println("The number of teams should be an even number, so this application could be able to run.");
+        }
+    }
+
+    // Method to create a list of numbers
+    public static int[] randomNumbers(int numberOfTeams) {
+        int[] numberList = new int[numberOfTeams];
+        for (int i = 0; i < numberOfTeams; i++) {
+            numberList[i] = i;
+        }
+        return numberList;
+    }
+
+    // Method to create the list of teams by getting values from user
+    public static List<String> createTeamList(int numberOfTeams) {
+        Scanner scan = new Scanner(System.in);
+        // Creating a list of String to add team names to it
+        List<String> teamsList = new ArrayList<>(numberOfTeams);
+
+        // By using for loop, get the name of the teams and add them to String list
+        for (int i = 0; i < numberOfTeams; i++) {
+            System.out.print("Enter the name of the team " + (i + 1) + ": ");
+            String teamName = scan.nextLine();
+            teamsList.add(teamName);
+        }
+        return teamsList;
+    }
+
+    public static int[] shuffleArray(int[] intArray) {
+        int n = intArray.length;
+        Random random = new Random();
+        random.nextInt();
+        for (int i = 0; i < n; i++) {
+            int change = i + random.nextInt(n - i);
+            swappingNumbers(intArray, i, change);
+        }
+        return intArray;
+    }
+
+    public static void swappingNumbers(int[] intArray, int i, int change) {
+        int temp = intArray[i];
+        intArray[i] = intArray[change];
+        intArray[change] = temp;
+    }
+
+    public static void matchingTeams(int[] intArray, List<String> teamsList) {
+        System.out.println(">>>>>>>>>> Matching Teams List <<<<<<<<<<");
+        for (int i = 0; i < teamsList.size();) {
+            System.out.println(teamsList.get(intArray[i]) + " is matched with " + teamsList.get(intArray[i + 1]));
+            i += 2;
+        }
+    }
+}
